@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.guzt.boottest.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="cn.guzt.boottest.domain.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="CITY_CODE" jdbcType="VARCHAR" property="cityCode" />
+    <result column="CITY_NAME" jdbcType="VARCHAR" property="cityName" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="CREATE_OPER_ID" jdbcType="VARCHAR" property="createOperId" />
+    <result column="UPDATE_OPER_ID" jdbcType="VARCHAR" property="updateOperId" />
+  </resultMap>
+
+  <!-- listCountCityUser 一些聚合查询或特殊汇总查询可以按照之前老的方式直接写SQL查询。 -->
+  <resultMap id="CountCityUserMap" type="cn.guzt.boottest.vo.CountCityUserVo">
+    <result column="COUNT_USER" jdbcType="INTEGER" property="countUser" />
+    <result column="CITY_NAME" jdbcType="VARCHAR" property="name" />
+    <result column="CITY_CODE" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+
+   <select id="listCountCityUser" resultMap="CountCityUserMap">
+     SELECT CITY_CODE,CITY_NAME,COUNT(1)COUNT_USER
+       FROM USER
+      WHERE 1=1
+      <if test="code != null">
+        AND CITY_CODE = #{code}
+      </if>
+      GROUP BY CITY_CODE,CITY_NAME
+      ORDER BY CITY_CODE
+   </select>
+
+</mapper>

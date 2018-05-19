@@ -1,0 +1,40 @@
+server:
+  port: 8081
+  tomcat:
+    max-threads: 100
+    min-spare-threads: 20
+    connection-timeout: 5000
+    uri-encoding: UTF-8
+
+logging:
+    level:
+        tk.mybatis: DEBUG
+
+spring:
+    datasource:
+        druid:
+          name: test
+          url: jdbc:mysql://127.0.0.1:3306/boottest
+          username: root
+          password: root123
+          driver-class-name: com.mysql.jdbc.Driver
+          filters: stat
+          maxActive: 20
+          initialSize: 2
+          maxWait: 60000
+          minIdle: 2
+          timeBetweenEvictionRunsMillis: 60000
+          minEvictableIdleTimeMillis: 300000
+          validationQuery: select 'x'
+          testWhileIdle: true
+          testOnBorrow: false
+          testOnReturn: false
+          poolPreparedStatements: true
+          maxOpenPreparedStatements: 20
+
+swagger:
+  enabled: true
+  title: spring-boot-starter-swagger
+  description: Starter for swagger 2.x
+  version: 1.7.0.RELEASE
+  base-package: cn.guzt.boottest.controller
