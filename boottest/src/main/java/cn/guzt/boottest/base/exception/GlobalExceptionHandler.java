@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     public ResponseVo<String> handleException(Exception e) {
         logger.debug("公共未定义异常-- begin：", e);
         logger.debug("公共未定义异常-- end");
-        return ResponseVo.fail(ResponseVo.FAIL,ResponseVo.FAIL_MSG,e.getMessage());
+        return ResponseVo.create(ResponseVo.FAIL,ResponseVo.FAIL_MSG,e.getMessage());
     }
 
     /**
@@ -36,9 +36,9 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public ResponseVo<String> handleBusinessException(BusinessException e) {
+    public ResponseVo handleBusinessException(BusinessException e) {
         logger.debug("BusinessException -- errorCode：{} errorMsg：{}", e.getErrorCode(), e.getErrorMsg());
-        return ResponseVo.fail(e.getErrorCode(), e.getErrorMsg(),null);
+        return ResponseVo.fail(e.getErrorCode(), e.getErrorMsg());
     }
 
     /**

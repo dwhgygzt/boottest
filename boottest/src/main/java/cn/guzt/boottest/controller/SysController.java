@@ -41,7 +41,7 @@ public class SysController {
     @ApiOperation(value="创建城市", notes="创建用户所在城市，code字段唯一")
     @ApiImplicitParam(name = "cityDto", value = "详细实体city", required = true, dataType = "CityDto")
     @RequestMapping(value = "/add/city", method = RequestMethod.POST)
-    public ResponseVo<String> addCity (@RequestBody @Validated CityDto cityDto){
+    public ResponseVo addCity (@RequestBody @Validated CityDto cityDto){
         sysUserService.saveCity(cityDto);
         return ResponseVo.success("创建成功");
     }
@@ -54,7 +54,7 @@ public class SysController {
     @ApiOperation(value="创建用户", notes="创建用户，mobile字段唯一")
     @ApiImplicitParam(name = "userDto", value = "详细实体user", required = true, dataType = "UserDto")
     @RequestMapping(value = "/add/user", method = RequestMethod.POST)
-    public ResponseVo<String> addUser (@RequestBody @Validated UserDto userDto){
+    public ResponseVo addUser (@RequestBody @Validated UserDto userDto){
         sysUserService.saveUser(userDto);
         return ResponseVo.success("创建成功");
     }
