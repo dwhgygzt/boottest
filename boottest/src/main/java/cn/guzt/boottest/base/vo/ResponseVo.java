@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 /**
  * 接口返回通用实体
- * @author Administrator
- * @param <T> 响应消息体
+ * @author guzt
  */
 public class ResponseVo<T> implements Serializable
 {
@@ -18,6 +17,14 @@ public class ResponseVo<T> implements Serializable
     public static final String FAIL = "-1";
 
     public static final String FAIL_MSG = "FAIL";
+
+    /**
+     * 用于返回无data情况下的ResponseVo对象
+     */
+    private static class NoBody implements Serializable{
+        private static final long serialVersionUID = -5050381407741914575L;
+    }
+
 
     /**
      * 消息状态码
@@ -44,8 +51,8 @@ public class ResponseVo<T> implements Serializable
 
     /**
      * 创建 ResponseVo 的实例.
-     * @param code
-     * @param message
+     * @param code 消息码
+     * @param message 消息信息
      */
     public ResponseVo(String code, String message)
     {
@@ -69,7 +76,26 @@ public class ResponseVo<T> implements Serializable
     }
 
     /**
-     * 响应操作成功默认消息
+     * 响应操作成功默认消息,无data数据
+     * @return ResponseVo
+     */
+    public static  ResponseVo<NoBody> success()
+    {
+        return new ResponseVo<>(SUCCESS, SUCCESS_MSG, null);
+    }
+
+    /**
+     * 响应操作成功自定义消息,无data数据
+     * @param message 消息信息
+     * @return ResponseVo
+     */
+    public static  ResponseVo<NoBody> success(String message)
+    {
+        return new ResponseVo<>(SUCCESS, message, null);
+    }
+
+    /**
+     * 响应操作成功默认消息,包含data数据
      * @param data 消息体
      * @return ResponseVo
      */
@@ -79,7 +105,27 @@ public class ResponseVo<T> implements Serializable
     }
 
     /**
-     * 响应操作失败消息
+     * 响应操作成功自定义消息,包含data数据
+     * @param message 消息信息
+     * @param data 消息体
+     * @return ResponseVo
+     */
+    public static <T> ResponseVo<T> success(String message, T data)
+    {
+        return new ResponseVo<T>(SUCCESS, message, data);
+    }
+
+    /**
+     * 响应操作成功默认消息,无data数据
+     * @return ResponseVo
+     */
+    public static  ResponseVo<NoBody> fail()
+    {
+        return new ResponseVo<>(FAIL, FAIL_MSG, null);
+    }
+
+    /**
+     * 响应操作失败消息.
      * @param message 消息信息
      * @return ResponseVo
      */
@@ -89,17 +135,47 @@ public class ResponseVo<T> implements Serializable
     }
 
     /**
-     * 响应失败消息
+     * 响应操作成功默认消息,包含data数据
+     * @param data 消息体
+     * @return ResponseVo
+     */
+    public static <T> ResponseVo<T> fail(T data)
+    {
+        return new ResponseVo<T>(FAIL, FAIL_MSG, data);
+    }
+
+    /**
+     * 响应操作成功自定义消息,包含data数据
      * @param message 消息信息
      * @param data 消息体
      * @return ResponseVo
      */
-    public static <T> ResponseVo<T> fail(String code, String message, T data)
+    public static <T> ResponseVo<T> fail(String message, T data)
     {
         return new ResponseVo<T>(FAIL, message, data);
     }
 
+    /**
+     * 自定义消息，无data数据
+     * @param code 消息码
+     * @param message 消息信息
+     * @return ResponseVo
+     */
+    public static ResponseVo<NoBody> create(String code, String message)
+    {
+        return new ResponseVo<>(code, message);
+    }
 
+    /**
+     * 自定义消息，包含data数据
+     * @param code 消息码
+     * @param message 消息信息
+     * @return ResponseVo
+     */
+    public static <T> ResponseVo<T> create(String code, String message, T data)
+    {
+        return new ResponseVo<T>(code, message, data);
+    }
 
     public String getCode() {
         return code;
@@ -124,4 +200,5 @@ public class ResponseVo<T> implements Serializable
     public void setData(T data) {
         this.data = data;
     }
+
 }
