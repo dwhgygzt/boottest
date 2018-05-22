@@ -4,10 +4,10 @@ spring:
   mvc:
     view:
       prefix: /templates/
-      suffix: .ftl
-  freemarker:
+      suffix: .html
+  thymeleaf:
+      # 开发环境关闭缓存
       cache: false
-      request-context-attribute: request
 
 mybatis:
     type-aliases-package: cn.guzt.boottest.dao
