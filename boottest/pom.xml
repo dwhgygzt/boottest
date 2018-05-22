@@ -33,16 +33,18 @@
 	</properties>
 
 	<dependencies>
-		<!-- 用于使用Spring MVC构建web应用，包括RESTful。Tomcat是默认的内嵌容器 -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- 用于使用FreeMarker模板引擎构建MVC web应用 -->
+
+		<!-- 用于使用boot推荐的thymeleaf模板引擎构建MVC web应用 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-freemarker</artifactId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
 		<!-- 对JDBC的支持（使用Tomcat JDBC连接池） -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -155,6 +157,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>

@@ -10,11 +10,13 @@ import cn.guzt.boottest.service.SysService;
 import cn.guzt.boottest.vo.CountCityUserVo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -32,6 +34,17 @@ public class SysController {
     @Resource
     private SysService sysUserService;
 
+    /**
+     * 跳转首页，这里必须采用ModelAndView跳转，原因是类上注解为 @RestController
+     * @return
+     */
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public ModelAndView sysView( ){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.getModelMap().addAttribute("myKey","Hello my boot");
+        modelAndView.setViewName("/index");
+        return modelAndView;
+    }
 
     /**
      * 创建城市
