@@ -3,6 +3,7 @@ package cn.guzt.boottest.controller;
 import cn.guzt.boottest.base.vo.PageVo;
 import cn.guzt.boottest.base.vo.ResponseVo;
 import cn.guzt.boottest.domain.City;
+import cn.guzt.boottest.domain.User;
 import cn.guzt.boottest.dto.CityDto;
 import cn.guzt.boottest.dto.CityPageDto;
 import cn.guzt.boottest.dto.UserDto;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -39,9 +42,16 @@ public class SysController {
      * @return
      */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView sysView( ){
+    public ModelAndView sysView(HttpServletRequest request, HttpSession session){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.getModelMap().addAttribute("myKey","Hello my boot");
+        User user = new User();
+        user.setId(1);
+        user.setCityName("上海");
+        user.setUserName("测试用例");
+        user.setMobile("13584061147");
+        modelAndView.getModelMap().addAttribute("modelUser",user);
+        request.setAttribute("requestUser",user);
+        session.setAttribute("sessionUser",user);
         modelAndView.setViewName("/index");
         return modelAndView;
     }
