@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>字体变化游戏</title>
+</head>
+<body>
+    <div style="margin-top: 100px; width: 600px;height: 400px; background-color: darkseagreen">
+        <div style="margin: 0px">
+            <p id="guyantext" style="font-size: 18px; font-weight: 500">
+                测 试
+            </p>
+        </div>
+    </div>
+   <div style="margin-top: 100px; width: 1000px;height: 200px;">
+       <button id="changeBigBtn"  style="margin-left: 100px;font-size: 30px;cursor: pointer">变大</button>
+       <button id="changeSmallBtn" style="margin-left: 30px;font-size: 30px;cursor: pointer">变小</button>
+   </div>
+
+</body>
+<script  src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+<script>
+    var fontSize = 18;
+    var mytime = null;
+    function clearMyInterval() {
+        if (mytime != null){
+            clearInterval(mytime);
+        }
+    }
+    $("#changeBigBtn").mouseover(function () {
+        $(this).css("color","lime");
+        clearMyInterval();
+         mytime = setInterval(function () {
+            fontSize = fontSize + 4;
+            $("#guyantext").css("font-size",fontSize+"px");
+            if (fontSize >= 180){
+                clearMyInterval();
+            }
+        },500);
+    });
+
+    $("#changeSmallBtn").mouseover(function () {
+        $(this).css("color","lime");
+        clearMyInterval();
+         mytime = setInterval(function () {
+            fontSize = fontSize - 4;
+            $("#guyantext").css("font-size",fontSize+"px");
+            if (fontSize <= 18){
+                clearMyInterval();
+            }
+        },500);
+    });
+
+    $("#changeSmallBtn, #changeBigBtn").mouseout(function () {
+        $(this).css("color","black");
+        clearMyInterval();
+    });
+</script>
+</html>
