@@ -41,7 +41,7 @@ public class SysController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView sysView( ){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.getModelMap().addAttribute("myKey","Hello my boot");
+        modelAndView.getModelMap().addAttribute("name","Hello my boot");
         modelAndView.setViewName("/index");
         return modelAndView;
     }
