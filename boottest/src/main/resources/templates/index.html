@@ -1,11 +1,86 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN">
 <head>
-    <title>hello</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="spring boot index">
+    <meta name="author" content="guzt">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/static/bootstrap-3.3.7/css/bootstrap.css}"></link>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/bootstrap-3.3.7/css/bootstrap-theme.css}"></link>
+
 </head>
+
 <body>
-<!--/*@thymesVar id="name" type="java.lang.String"*/-->
-<p th:text="'Hello！, ' + ${name} + '!'" >3333</p>
+
+<div class="container">
+
+    <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">User Name</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="User Name">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button type="button" class="btn btn-lg btn-primary btn-block" id="loginBtn">Sign in</button>
+    </form>
+
+</div> <!-- /container -->
+
+<div class="alert alert-warning" role="alert" id="alertInfoDiv" style="display: none;margin-top: 15px;">
+
+</div>
+
+<script type="text/javascript" src="/static/jquery/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/bootstrap-3.3.7/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/common-utils.js"></script>
+<script type="text/javascript">
+
+
+
+    // 登录页面
+    $(function () {
+        $("#loginBtn").click(function () {
+            var userName = $("#inputEmail").val();
+            var password = $("#inputPassword").val();
+            if(strUtil.isEmpty(userName) || strUtil.isEmpty(password)){
+                $("#alertInfoDiv").css("display","").html('请输入登录用户名和密码');
+                return;
+            }
+
+            var args = {
+                "userName":userName,
+                "password":password
+            };
+            $.ajax({
+                type: "POST",
+                url: "/sys/loginCheck",
+                dataType: "json",
+                contentType : "application/json; charset=utf-8",
+                data: JSON.stringify(args),
+                success:function(result){
+                    if(result['code']==='0'){
+                        window.location.href = "/sys/main";
+                    }else{
+                        $("#alertInfoDiv").css("display","").html(result['message']);
+                    }
+                },
+                error : function(data) {
+                    $("#alertInfoDiv").css("display","").html(result['message']);
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

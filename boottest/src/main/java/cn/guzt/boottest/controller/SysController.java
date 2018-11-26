@@ -2,15 +2,18 @@ package cn.guzt.boottest.controller;
 
 import cn.guzt.boottest.base.vo.PageVo;
 import cn.guzt.boottest.base.vo.ResponseVo;
+import cn.guzt.boottest.constants.Constants;
 import cn.guzt.boottest.domain.City;
+import cn.guzt.boottest.domain.User;
 import cn.guzt.boottest.dto.CityDto;
 import cn.guzt.boottest.dto.CityPageDto;
+import cn.guzt.boottest.dto.LoginDto;
 import cn.guzt.boottest.dto.UserDto;
 import cn.guzt.boottest.service.SysService;
+import cn.guzt.boottest.util.MD5Util;
 import cn.guzt.boottest.vo.CountCityUserVo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -30,19 +34,42 @@ import java.util.List;
 @RequestMapping("/sys")
 public class SysController {
 
-
     @Resource
     private SysService sysUserService;
 
     /**
-     * 跳转首页，这里必须采用ModelAndView跳转，原因是类上注解为 @RestController
-     * @return
+     * 创建用户
+     * @param loginDto 登录参数封装
+     * @return ResponseVo
      */
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView sysView( ){
+    @ApiOperation(value="用户登录验证", notes="用户名，密码登录验证")
+    @ApiImplicitParam(name = "LoginDto", value = "登录参数封装", required = true, dataType = "LoginDto")
+    @RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
+    public ResponseVo loginCheck (@RequestBody @Validated LoginDto loginDto, HttpServletRequest request){
+        User user = new User();
+        user.setUserName(loginDto.getUserName());
+        user.setPassword(MD5Util.encodeByMd5(loginDto.getPassword()));
+        user = sysUserService.getSingleUser(user);
+        if (user != null && user.getUserName() != null){
+            request.getSession().setAttribute(Constants.SESSION_USER_KEY,user);
+            return ResponseVo.success("登录验证成功");
+        }else {
+            return ResponseVo.fail("用户名或密码不正确");
+        }
+    }
+
+    /**
+     * 这里必须采用ModelAndView跳转，原因是类上注解为 @RestController
+     * @return ModelAndView
+     */
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public ModelAndView sysView(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.getModelMap().addAttribute("name","Hello my boot");
-        modelAndView.setViewName("/index");
+        User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+        modelAndView.getModelMap().addAttribute("userName",user.getUserName());
+        modelAndView.getModelMap().addAttribute("mobile",user.getMobile());
+        modelAndView.getModelMap().addAttribute("cityCode",user.getCityCode());
+        modelAndView.setViewName("/main");
         return modelAndView;
     }
 

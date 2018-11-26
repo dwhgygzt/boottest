@@ -3,20 +3,20 @@ server:
   tomcat:
     max-threads: 100
     min-spare-threads: 20
-    connection-timeout: 5000
     uri-encoding: UTF-8
 
 logging:
   level:
     root: INFO
     cn.guzt.boottest.dao: DEBUG
-
+  path: /logfile/javaee/
+  file: boottest.log
 
 spring:
     datasource:
         druid:
           name: test
-          url: jdbc:mysql://127.0.0.1:3306/boottest
+          url: jdbc:mysql://127.0.0.1:3306/boottest?useUnicode=true&characterEncoding=utf-8&useSSL=false
           username: root
           password: root123
           driver-class-name: com.mysql.jdbc.Driver
@@ -38,5 +38,20 @@ swagger:
   enabled: true
   title: spring-boot-starter-swagger
   description: Starter for swagger 2.x
-  version: 1.7.0.RELEASE
+  version: 2.0.0.RELEASE
   base-package: cn.guzt.boottest.controller
+
+myparamers:
+  simpleProp: simplePropValue
+  arrayProps: 1,2,3,4,5
+  listProp1:
+    - name: abc
+      value: abcValue
+    - name: efg
+      value: efgValue
+  listProp2:
+    - config2Value1
+    - config2Vavlue2
+  mapProps:
+    key1: value1
+    key2: value2

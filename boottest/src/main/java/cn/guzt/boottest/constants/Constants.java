@@ -6,9 +6,11 @@ package cn.guzt.boottest.constants;
  */
 public interface Constants {
 
-    String SYSTEM_VERSION = "1.2.0";
+    String SYSTEM_VERSION = "2.0.0";
 
     String DEFAULT_CREATE_OPER = "admin";
+
+    String SESSION_USER_KEY = "sessionUserKey";
 
 
 }

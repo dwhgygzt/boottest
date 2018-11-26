@@ -109,4 +109,9 @@ public class SysServiceImpl implements SysService {
     public List<CountCityUserVo> listCountCityUser(CityDto cityDto) {
         return userMapper.listCountCityUser(cityDto);
     }
+
+    @Override
+    public User getSingleUser(User user) {
+        return userMapper.selectOne(user);
+    }
 }

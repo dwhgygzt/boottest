@@ -2,6 +2,7 @@ package cn.guzt.boottest.service;
 
 import cn.guzt.boottest.base.vo.PageVo;
 import cn.guzt.boottest.domain.City;
+import cn.guzt.boottest.domain.User;
 import cn.guzt.boottest.dto.CityDto;
 import cn.guzt.boottest.dto.CityPageDto;
 import cn.guzt.boottest.dto.UserDto;
@@ -23,5 +24,7 @@ public interface SysService {
     PageVo<City> listCity(CityPageDto cityPageDto);
 
     List<CountCityUserVo> listCountCityUser(CityDto cityDto);
+
+    User getSingleUser(User user);
 
 }

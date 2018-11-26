@@ -105,6 +105,13 @@
 			<version>${boot.swagger.version}</version>
 		</dependency>
 
+		<!-- 支持 @ConfigurationProperties 注解 -->
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-configuration-processor -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+		</dependency>
+
 		<!-- 用于测试Spring Boot应用，支持常用测试类库，包括JUnit, Hamcrest和Mockito -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
