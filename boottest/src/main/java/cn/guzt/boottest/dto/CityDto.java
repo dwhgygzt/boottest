@@ -5,7 +5,7 @@ import cn.guzt.boottest.base.dto.AbstractDto;
 import javax.validation.constraints.NotNull;
 
 /**
- * 前端传递的city相关参数
+ * @author Admin
  */
 public class CityDto extends AbstractDto {
 

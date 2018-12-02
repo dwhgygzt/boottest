@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class IpUtils {
 
+	private static  int IP_LENGTH = 15;
 
 	/**
 	 * 通过request对象获取对应的IP地址.
@@ -35,7 +36,7 @@ public class IpUtils {
         {
             requestIP = request.getRemoteAddr();
         }
-        if (requestIP != null && requestIP.length() > 15)
+        if (requestIP != null && requestIP.length() > IP_LENGTH)
         {
             if (requestIP.indexOf(",") > 0)
             {
@@ -43,7 +44,7 @@ public class IpUtils {
             }
         }
         
-        return requestIP.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : requestIP;
+        return "0:0:0:0:0:0:0:1".equals(requestIP) ? "127.0.0.1" : requestIP;
     }
     
     /**
@@ -54,11 +55,13 @@ public class IpUtils {
     	InetAddress addr;
     	String ip = "";
     	String hostName = "";
-    	Map<String,String> map = new HashMap<String, String>();
+    	Map<String,String> map = new HashMap<String, String>(16);
 		try {
 			addr = InetAddress.getLocalHost();
-			ip=addr.getHostAddress();	//获得本机IP
-	    	hostName=addr.getHostName();	//获得本机名称
+			//获得本机IP
+			ip=addr.getHostAddress();
+			//获得本机名称
+	    	hostName=addr.getHostName();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}

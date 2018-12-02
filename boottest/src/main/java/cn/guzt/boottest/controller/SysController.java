@@ -10,15 +10,12 @@ import cn.guzt.boottest.dto.CityPageDto;
 import cn.guzt.boottest.dto.LoginDto;
 import cn.guzt.boottest.dto.UserDto;
 import cn.guzt.boottest.service.SysService;
-import cn.guzt.boottest.util.MD5Util;
+import cn.guzt.boottest.util.Md5Util;
 import cn.guzt.boottest.vo.CountCityUserVo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -48,7 +45,7 @@ public class SysController {
     public ResponseVo loginCheck (@RequestBody @Validated LoginDto loginDto, HttpServletRequest request){
         User user = new User();
         user.setUserName(loginDto.getUserName());
-        user.setPassword(MD5Util.encodeByMd5(loginDto.getPassword()));
+        user.setPassword(Md5Util.encodeByMd5(loginDto.getPassword()));
         user = sysUserService.getSingleUser(user);
         if (user != null && user.getUserName() != null){
             request.getSession().setAttribute(Constants.SESSION_USER_KEY,user);
@@ -122,5 +119,17 @@ public class SysController {
         return ResponseVo.success(sysUserService.listCountCityUser(cityDto));
     }
 
+    /**
+     * 按照id查询用户信息
+     * @return ResponseVo
+     */
+    @ApiOperation(value="按照id查询用户信息", notes="restful类型的接口")
+    @ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "Integer")
+    @GetMapping("/user/{id}")
+    public ResponseVo<User> getSingleUser(@PathVariable Integer id){
+        User user = new User();
+        user.setId(id);
+        return ResponseVo.success(sysUserService.getSingleUser(user));
+    }
 
 }

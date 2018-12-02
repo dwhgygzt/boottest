@@ -4,6 +4,9 @@ import cn.guzt.boottest.base.entity.AbstractEntity;
 import java.util.Date;
 import javax.persistence.*;
 
+/**
+ * @author Admin
+ */
 @Table(name = "user")
 public class User extends AbstractEntity {
     @Id

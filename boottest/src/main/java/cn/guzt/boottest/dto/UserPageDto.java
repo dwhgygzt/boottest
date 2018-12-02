@@ -3,7 +3,7 @@ package cn.guzt.boottest.dto;
 import cn.guzt.boottest.base.dto.PageDto;
 
 /**
- * 分页查询
+ * @author Admin
  */
 public class UserPageDto extends PageDto {
 

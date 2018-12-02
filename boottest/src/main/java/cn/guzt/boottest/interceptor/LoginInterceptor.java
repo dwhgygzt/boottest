@@ -1,4 +1,4 @@
-package cn.guzt.boottest.Interceptor;
+package cn.guzt.boottest.interceptor;
 
 import cn.guzt.boottest.constants.Constants;
 import cn.guzt.boottest.domain.User;
@@ -106,7 +106,7 @@ public class LoginInterceptor implements HandlerInterceptor {
              *   否：跳转至登录界面
              */
             if (request.getHeader("x-requested-with") != null
-                    && request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")){
+                    && "XMLHttpRequest".equalsIgnoreCase(request.getHeader("x-requested-with"))){
                 response.setHeader("sessionstatus", "timeout");//在响应头设置session状态
                 response.setContentType("application/json;charset=UTF-8");
                 response.setStatus(401);

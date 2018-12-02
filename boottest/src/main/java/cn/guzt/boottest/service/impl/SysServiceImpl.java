@@ -11,7 +11,7 @@ import cn.guzt.boottest.dto.CityDto;
 import cn.guzt.boottest.dto.CityPageDto;
 import cn.guzt.boottest.dto.UserDto;
 import cn.guzt.boottest.service.SysService;
-import cn.guzt.boottest.util.MD5Util;
+import cn.guzt.boottest.util.Md5Util;
 import cn.guzt.boottest.vo.CountCityUserVo;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
@@ -75,7 +75,7 @@ public class SysServiceImpl implements SysService {
         User user = JSONObject.parseObject(JSONObject.toJSONString(userDto),User.class);
         user.setCityName(city.getName());
         user.setId(null);
-        user.setPassword(MD5Util.encodeByMd5(user.getPassword()));
+        user.setPassword(Md5Util.encodeByMd5(user.getPassword()));
         user.setCreateTime(new Date());
         user.setCreateOperId(Constants.DEFAULT_CREATE_OPER);
         userMapper.insertSelective(user);

@@ -4,6 +4,9 @@ import cn.guzt.boottest.base.dto.AbstractDto;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author Admin
+ */
 public class LoginDto extends AbstractDto {
 
     /**

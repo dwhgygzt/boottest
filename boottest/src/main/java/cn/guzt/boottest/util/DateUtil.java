@@ -362,52 +362,6 @@ public class DateUtil {
     }
 
     /**
-     * 获取当前季度第一天的起始时间.
-     * @return 当前季度第一天的起始时间
-     */
-    public static Date getQuarterStartTime() {
-        Calendar cal = Calendar.getInstance();
-        int month = cal.get(Calendar.MONTH);
-        if (month < 3) {
-            cal.set(Calendar.MONTH, 0);
-        }
-        else if (month < 6) {
-            cal.set(Calendar.MONTH, 3);
-        }
-        else if (month < 9) {
-            cal.set(Calendar.MONTH, 6);
-        }
-        else {
-            cal.set(Calendar.MONTH, 9);
-        }
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        return getIntegralStartTime(cal.getTime());
-    }
-
-    /**
-     * 获取当前季度最后一天的结束时间.
-     * @return 当前季度最后一天的结束时间
-     */
-    public static Date getQuarterEndTime() {
-        Calendar cal = Calendar.getInstance();
-        int month = cal.get(Calendar.MONTH);
-        if (month < 3) {
-            cal.set(Calendar.MONTH, 2);
-        }
-        else if (month < 6) {
-            cal.set(Calendar.MONTH, 5);
-        }
-        else if (month < 9) {
-            cal.set(Calendar.MONTH, 8);
-        }
-        else {
-            cal.set(Calendar.MONTH, 11);
-        }
-        cal.set(Calendar.DAY_OF_MONTH, getDayOfMonth(cal.getTime()));
-        return getIntegralEndTime(cal.getTime());
-    }
-
-    /**
      * 获取当前年的起始时间.
      * @return 当前年的起始时间
      */
@@ -419,37 +373,6 @@ public class DateUtil {
         return getIntegralStartTime(cal.getTime());
     }
 
-    /**
-     * 获取前一个工作日.
-     * @return 前一个工作日
-     */
-    public static Date getPrevWorkday() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH, -1);
-        if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-            cal.add(Calendar.DAY_OF_MONTH, -2);
-        }
-        if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-            cal.add(Calendar.DAY_OF_MONTH, -1);
-        }
-        return getIntegralStartTime(cal.getTime());
-    }
-
-    /**
-     * 获取下一个工作日 .
-     * @return 下个工作日
-     */
-    public static Date getNextWorkday() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-            cal.add(Calendar.DAY_OF_MONTH, 2);
-        }
-        if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-            cal.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        return getIntegralStartTime(cal.getTime());
-    }
 
     /**
      * 获取当周的第一个工作日.
@@ -513,51 +436,17 @@ public class DateUtil {
     }
 
     /**
-     * 获取指定日期距离当前时间的时间差描述（如3小时前、1天前）.
-     * @param date 指定日期
-     * @return 时间差的描述
-     */
-    public static String getTimeOffsetDesc(Date date) {
-        int seconds = getOffsetSeconds(date, new Date());
-        if (Math.abs(seconds) < 60) {
-            return Math.abs(seconds) + "秒" + (seconds > 0 ? "前" : "后");
-        }
-        int minutes = seconds / 60;
-        if (Math.abs(minutes) < 60) {
-            return Math.abs(minutes) + "分钟" + (minutes > 0 ? "前" : "后");
-        }
-        int hours = minutes / 60;
-        if (Math.abs(hours) < 60) {
-            return Math.abs(hours) + "小时" + (hours > 0 ? "前" : "后");
-        }
-        int days = hours / 24;
-        if (Math.abs(days) < 7) {
-            return Math.abs(days) + "天" + (days > 0 ? "前" : "后");
-        }
-        int weeks = days / 7;
-        if (Math.abs(weeks) < 5) {
-            return Math.abs(weeks) + "周" + (weeks > 0 ? "前" : "后");
-        }
-        int monthes = days / 30;
-        if (Math.abs(monthes) < 12) {
-            return Math.abs(monthes) + "个月" + (monthes > 0 ? "前" : "后");
-        }
-        int years = monthes / 12;
-        return Math.abs(years) + "年" + (years > 0 ? "前" : "后");
-    }
-
-    /**
      *
      * 比较日期大小.
      * @param date1 String类型 yyyy-MM-dd hh:mm:ss
      * @param date2 String类型 yyyy-MM-dd hh:mm:ss
      * @return 1: date1 > date2 -1: date1 < date2 0: date1 = date2
      */
-    public static int compare_date(String date1, String date2) {
+    public static int compareDate(String date1, String date2) {
         try {
             Date dt1 = parse(date1);
             Date dt2 = parse(date2);
-            return compare_date(dt1,dt2);
+            return compareDate(dt1,dt2);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -573,7 +462,7 @@ public class DateUtil {
      * @param date2 yyyy-MM-dd hh:mm:ss
      * @return 1: date1 > date2 -1: date1 < date2 0: date1 = date2
      */
-    public static int compare_date(Date date1, Date date2) {
+    public static int compareDate(Date date1, Date date2) {
         try {
             if (date1.getTime() > date2.getTime()) {
                 return 1;
@@ -683,9 +572,9 @@ public class DateUtil {
         }catch(Exception e){
             e.printStackTrace();
         }
-        long between_days=(time2-time1)/(1000*3600*24);
+        long betweenDays = (time2-time1)/(1000*3600*24);
 
-        return Integer.parseInt(String.valueOf(between_days));
+        return Integer.parseInt(String.valueOf(betweenDays));
     }
 
     /**

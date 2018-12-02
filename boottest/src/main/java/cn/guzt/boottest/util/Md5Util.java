@@ -19,7 +19,7 @@ import java.security.MessageDigest;
  * MD5加密工具类
  *
  */
-public class MD5Util {
+public class Md5Util {
 
     /**
      * 利用MD5进行加密

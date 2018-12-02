@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 /**
- * 前端传递的user相关参数
+ * @author Admin
  */
 public class UserDto extends AbstractDto {
 
