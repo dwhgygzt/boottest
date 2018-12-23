@@ -57,6 +57,12 @@
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 
+		<!-- 用于使用Spring boot 健康检查 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
 		<!-- alibaba druid 数据源 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
